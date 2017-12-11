@@ -2,7 +2,8 @@ package com.wenping.yizhi.yizhiapp.utils;
 
 import android.util.Log;
 
-import com.zyw.horrarndoo.sdk.BuildConfig;
+import com.wansir.lib.logger.BuildConfig;
+
 
 /**
  * Created by Horrarndoo on 2017/4/5.

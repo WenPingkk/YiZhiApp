@@ -11,16 +11,16 @@ import android.view.inputmethod.InputMethodManager;
 import com.wenping.yizhi.yizhiapp.R;
 import com.wenping.yizhi.yizhiapp.global.GlobalApplication;
 import com.wenping.yizhi.yizhiapp.manager.AppManager;
-import com.wenping.yizhi.yizhiapp.utils.AppUtils;
-import com.wenping.yizhi.yizhiapp.utils.SpUtils;
 import com.wenping.yizhi.yizhiapp.utils.StatusBarUtils;
-import com.wenping.yizhi.yizhiapp.utils.ThemeUtils;
 import com.wenping.yizhi.yizhiapp.widget.WaitPorgressDialog;
 
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportActivity;
 import me.yokeyword.fragmentation.anim.DefaultVerticalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
+
+//import com.wenping.yizhi.yizhiapp.utils.AppUtils;
+//import com.wenping.yizhi.yizhiapp.utils.ThemeUtils;
 
 /**
  * Created by YinZeTong on 2017/12/11.
@@ -51,8 +51,9 @@ public abstract class BaseCompatActivity extends SupportActivity {
     }
 
     private void init(Bundle savedInstanceState) {
-        setTheme(ThemeUtils.themeArr[SpUtils.getThemeIndex(this)][
-                SpUtils.getNightModel(this) ? 1 : 0]);
+        //注释了这句
+//        setTheme(ThemeUtils.themeArr[SpUtils.getThemeIndex(this)][
+//                SpUtils.getNightModel(this) ? 1 : 0]);
         setContentView(getLayoutId());
         ButterKnife.bind(this);
         StatusBarUtils.setTransparent(this);
@@ -77,7 +78,9 @@ public abstract class BaseCompatActivity extends SupportActivity {
      * 子类可以复写此方法初始化子类数据
      */
     protected void initData() {
-        mContext = AppUtils.getContext();
+        //修改了这里
+//        mContext = AppUtils.getContext();
+        mContext = this;
         mApplication = (GlobalApplication) getApplication();
         mWaitPorgressDialog = new WaitPorgressDialog(this);
         isTransAnim = true;
