@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.wenping.yizhi.yizhiapp"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            //不显示Log
+            buildConfigField "boolean","LOG_DEBUG","false"
+            //zipAlign 优化
+            zipAlignEnabled true
+            //移除无用的resource文件
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug{
+            buildConfigField "boolean","LOG_DEBUG","true"
+            minifyEnabled false
+            //zipAlign 优化
+            zipAlignEnabled true;
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    //*****************************
+    // appcompat-v7 is required, ，v1.1.9 compat v4-27.0.0+
+    implementation 'me.yokeyword:fragmentation:1.1.9'
+    // If you don't want to extends SupportActivity/Fragment and would like to customize your own support, just rely on fragmentation-core
+    // compile 'me.yokeyword:fragmentation-core:1.1.9'
+    // To get SwipeBack feature, rely on both fragmentation & fragmentation-swipeback
+    implementation 'me.yokeyword:fragmentation:1.1.9'
+    // Swipeback is based on fragmentation. Refer to SwipeBackActivity/Fragment for your Customized SupportActivity/Fragment
+    implementation 'me.yokeyword:fragmentation-swipeback:1.1.9'
+    // To simplify the communication between Fragments.
+    implementation 'me.yokeyword:eventbus-activity-scope:1.1.0'
+    // Your EventBus's version
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    //Butterknife
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation project(':logger')
+
+    //permissions
+//    compile "com.tbruyelle.rxpermissions2:rxpermissions:$rootProject.rxPerssionsVersion"
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+
+//    // Retrofit
+//    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+//    compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+//    compile "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
+//    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttploggingVersion"
+//    compile "com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"
+//
+//    // RxJava
+//    compile "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
+//    compile "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+//    compile "com.jakewharton.rxbinding2:rxbinding:$rootProject.rxbindingVersion"
+
+    //rxjava
+    compile 'io.reactivex.rxjava2:rxjava:2.1.7'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+// Because RxAndroid releases are few and far between, it is recommended you also
+// explicitly depend on RxJava's latest version for bug fixes and new features.
+
+    //retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+
+}
