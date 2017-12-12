@@ -22,7 +22,7 @@ import me.yokeyword.fragmentation.anim.DefaultVerticalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 /**
- * Created by YinZeTong on 2017/12/11.
+ * Created by WenPing on 2017/12/11.
  */
 
 public abstract class BaseCompatActivity extends SupportActivity {

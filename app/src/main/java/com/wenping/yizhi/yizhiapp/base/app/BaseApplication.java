@@ -8,7 +8,7 @@ import android.view.WindowManager;
 import com.wenping.yizhi.yizhiapp.global.GlobalApplication;
 
 /**
- * Created by YinZeTong on 2017/12/11.
+ * Created by WenPing on 2017/12/11.
  */
 
 public class BaseApplication extends GlobalApplication {

@@ -34,7 +34,7 @@
         android:theme="@style/AppTheme">
 
         <!--启动页面-->
-        <activity android:name=".ui.FlashActivity"
+        <activity android:name=".ui.activity.FlashActivity"
             android:screenOrientation="portrait">
             <intent-filter >
 
@@ -45,7 +45,7 @@
         </activity>
 
         <!--MainActivity-->
-        <activity android:name=".ui.MainActivity"/>
+        <activity android:name=".ui.activity.MainActivity"/>
     </application>
 
 </manifest>

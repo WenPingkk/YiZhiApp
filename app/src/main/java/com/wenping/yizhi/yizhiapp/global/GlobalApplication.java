@@ -10,7 +10,7 @@ import com.wansir.lib.logger.LogLevel;
 import com.wansir.lib.logger.Logger;
 
 /**
- * Created by YinZeTong on 2017/12/11.
+ * Created by WenPing on 2017/12/11.
  */
 
 public class GlobalApplication extends MobApplication implements ProtectedMemberKeeper{

@@ -1,4 +1,4 @@
-package com.wenping.yizhi.yizhiapp.ui;
+package com.wenping.yizhi.yizhiapp.ui.activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wansir.lib.logger.Logger;
@@ -26,7 +25,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
 /**
- * Created by YinZeTong on 2017/12/11.
+ * Created by WenPing on 2017/12/11.
  */
 
 public class FlashActivity extends BaseCompatActivity {
