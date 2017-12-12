@@ -9,9 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.wenping.yizhi.yizhiapp.R;
 import com.wenping.yizhi.yizhiapp.constant.BundleKeyConstant;
@@ -21,7 +19,6 @@ import com.wenping.yizhi.yizhiapp.ui.fragment.home.base.HomeMainPresenter;
 import com.wenping.yizhi.yizhiapp.ui.fragment.home.contract.HomeMainContract;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**homefragmnet
@@ -31,8 +28,6 @@ import butterknife.Unbinder;
 public class HomeFragment
         extends BaseMVPCompatFragment<HomeMainContract.HomeMainPresenter,
         HomeMainContract.IHomeMainModel> implements HomeMainContract.IHomeMainView {
-
-
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.tl_tabs)
