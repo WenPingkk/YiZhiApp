@@ -16,9 +16,9 @@ import com.wansir.lib.logger.Logger;
 public class GlobalApplication extends MobApplication implements ProtectedMemberKeeper{
 
     private static final String LOG_TAG = "YZ_LOGGER";
-    protected static Context sContext;
-    protected static Handler sHandler;
-    protected static int sMainThreadId;
+    protected static Context context;
+    protected static Handler handler;
+    protected static int mainThreadId;
     private static GlobalApplication sApp;
 
     public static synchronized GlobalApplication getApplication(){ return sApp;}
@@ -26,10 +26,10 @@ public class GlobalApplication extends MobApplication implements ProtectedMember
     @Override
     public void onCreate() {
         super.onCreate();
-        sContext = getApplicationContext();
-        sHandler = new Handler();
+        context = getApplicationContext();
+        handler = new Handler();
         //myTid什么意思呢
-        sMainThreadId = android.os.Process.myTid();
+        mainThreadId = android.os.Process.myTid();
 
         //这是什么意思呢
         Logger.init(LOG_TAG).logLevel(BuildConfig.IS_SHOW_LOG? LogLevel.FULL:LogLevel.NONE);
@@ -39,23 +39,23 @@ public class GlobalApplication extends MobApplication implements ProtectedMember
      * 获取上下文对象
      * @return
      */
-    public static Context getsContext(){
-        return sContext;
+    public static Context getContext(){
+        return context;
     }
 
     /**
      * 获取主线程
      * @return
      */
-    public static Handler getsHandler(){
-        return sHandler;
+    public static Handler getHandler(){
+        return handler;
     }
 
     /**
      * 获取主线程id
      * @return
      */
-    public static int getsMainThread(){
-        return sMainThreadId;
+    public static int getMainThreadId(){
+        return mainThreadId;
     }
 }

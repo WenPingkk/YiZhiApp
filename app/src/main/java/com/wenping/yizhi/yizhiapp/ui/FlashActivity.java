@@ -13,6 +13,7 @@ import com.wansir.lib.logger.Logger;
 import com.wenping.yizhi.yizhiapp.R;
 import com.wenping.yizhi.yizhiapp.base.activity.BaseCompatActivity;
 import com.wenping.yizhi.yizhiapp.helper.RxHelper;
+import com.wenping.yizhi.yizhiapp.utils.ToastUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -36,7 +37,12 @@ public class FlashActivity extends BaseCompatActivity {
     LinearLayout mLlSkip;
 
     private int mTime = 3;
-    private boolean mIsCancle;
+    private boolean mIsCancle = false;
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_flash;
+    }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -66,8 +72,7 @@ public class FlashActivity extends BaseCompatActivity {
             @Override
             public void accept(Boolean granted) throws Exception {
                 if (!granted) {
-//                    ToastUtils.showToast("App未获取");
-                    Toast.makeText(mApplication, "未获取权限", Toast.LENGTH_LONG).show();
+                    ToastUtils.showToast("App未获取");
                 } else {
                     //不管是否获取全部权限，进入主页面
                     initCountDownTimer();
@@ -141,23 +146,20 @@ public class FlashActivity extends BaseCompatActivity {
                         if (!mIsCancle) {
                             Intent intent = new Intent(FlashActivity.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
                         }
                     }
                 });
     }
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_flash;
-    }
-
     @OnClick(R.id.ll_skip)
     public void onClicked(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ll_skip:
                 mIsCancle = true;
                 Intent intent = new Intent(FlashActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
                 break;
 
             default:

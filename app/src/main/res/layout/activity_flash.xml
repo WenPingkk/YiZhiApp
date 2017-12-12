@@ -4,14 +4,13 @@
                 android:layout_height="match_parent"
                 android:background="@mipmap/bg_flash">
 
-    <!--android:layout_marginTop="35dp"-->
     <LinearLayout
         android:id="@+id/ll_skip"
         android:layout_width="80dp"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="25dp"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="35dp"
         android:background="@drawable/shape_count_down_bg"
         android:gravity="center"
         android:orientation="horizontal">
