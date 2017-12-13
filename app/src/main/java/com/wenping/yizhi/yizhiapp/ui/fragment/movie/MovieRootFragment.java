@@ -6,12 +6,13 @@ import android.view.View;
 
 import com.wenping.yizhi.yizhiapp.R;
 import com.wenping.yizhi.yizhiapp.ui.fragment.base.fragment.BaseCompatFragment;
+import com.wenping.yizhi.yizhiapp.ui.fragment.movie.child.MovieFragment;
 
 /**
  * Created by YinZeTong on 2017/12/12.
  */
 
-public class MovieRootFragment extends BaseCompatFragment{
+public class MovieRootFragment extends BaseCompatFragment {
 
     public static MovieRootFragment newInstance() {
         Bundle bundle = new Bundle();
@@ -19,6 +20,7 @@ public class MovieRootFragment extends BaseCompatFragment{
         movieRootFragment.setArguments(bundle);
         return movieRootFragment;
     }
+
     @Override
     public int getLayoutId() {
 
@@ -33,13 +35,14 @@ public class MovieRootFragment extends BaseCompatFragment{
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
+        //Logger.e("onLazyInitView");
         //加载fragment
         if (savedInstanceState == null) {
-            loadRootFragment(R.id.fl_container, MovieRootFragment.newInstance());
+            loadRootFragment(R.id.fl_container, MovieFragment.newInstance());
         } else {
             //这里可能出现该Fragment没被初始化时,就被强杀导致的没有load子Fragment
             if (findChildFragment(MovieRootFragment.class) == null) {
-                loadRootFragment(R.id.fl_container,MovieRootFragment.newInstance());
+                loadRootFragment(R.id.fl_container, MovieRootFragment.newInstance());
             }
         }
     }

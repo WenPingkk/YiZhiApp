@@ -6,9 +6,11 @@ import android.view.View;
 
 import com.wenping.yizhi.yizhiapp.R;
 import com.wenping.yizhi.yizhiapp.ui.fragment.base.fragment.BaseCompatFragment;
+import com.wenping.yizhi.yizhiapp.ui.fragment.gankio.child.GankIoFragment;
 
 /**
  * Created by YinZeTong on 2017/12/12.
+ * <p>
  */
 
 public class GankIoRootFragment extends BaseCompatFragment{
@@ -27,8 +29,8 @@ public class GankIoRootFragment extends BaseCompatFragment{
 
     @Override
     public void initUI(View view, @Nullable Bundle savedInstanceState) {
-        if (findChildFragment(GankIoRootFragment.class) == null) {
-            loadRootFragment(R.id.fl_container,GankIoRootFragment.newInstance());
+        if (findChildFragment(GankIoFragment.class) == null) {
+            loadRootFragment(R.id.fl_container,GankIoFragment.newInstance());
         }
     }
 }

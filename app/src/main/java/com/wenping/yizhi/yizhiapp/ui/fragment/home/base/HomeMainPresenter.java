@@ -2,8 +2,8 @@ package com.wenping.yizhi.yizhiapp.ui.fragment.home.base;
 
 import android.support.annotation.NonNull;
 
-import com.wenping.yizhi.yizhiapp.ui.fragment.home.contract.HomeMainContract;
-import com.wenping.yizhi.yizhiapp.ui.fragment.home.model.HomeMainModel;
+import com.wenping.yizhi.yizhiapp.contract.contract.home.HomeMainContract;
+import com.wenping.yizhi.yizhiapp.model.home.HomeMainModel;
 
 
 /**

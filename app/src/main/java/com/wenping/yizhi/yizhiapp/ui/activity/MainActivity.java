@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.wansir.lib.logger.Logger;
@@ -16,9 +18,11 @@ import com.wenping.yizhi.yizhiapp.rxbus.RxBus;
 import com.wenping.yizhi.yizhiapp.ui.fragment.book.BookRootFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.gankio.GankIoRootFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.home.HomeRootFragment;
+import com.wenping.yizhi.yizhiapp.ui.fragment.home.child.HomeFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.movie.MovieRootFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.personal.PersonalRootFragment;
 import com.wenping.yizhi.yizhiapp.widget.MovingImageView;
+import com.wenping.yizhi.yizhiapp.widget.MovingViewAnimator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,10 +30,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
+ * 主页
  * Created by wenping on 12/12/2017.
  */
 
-public class MainActivity extends BaseCompatActivity {
+public class MainActivity extends BaseCompatActivity implements HomeFragment.OnOpenDrawerLayoutListener{
 
 
     @BindView(R.id.nv_menu)
@@ -75,10 +80,18 @@ public class MainActivity extends BaseCompatActivity {
         //如果是第一进入页面
         if (savedInstanceState == null) {
             mFragments[FIRST] = HomeRootFragment.newInstance();
-            mFragments[SECOND] = GankIoRootFragment.newInstance();
-            mFragments[THIRD] = MovieRootFragment.newInstance();
-            mFragments[FOURTH] = BookRootFragment.newInstance();
-            mFragments[FIFTH] = PersonalRootFragment.newInstance();
+            mFragments[SECOND] = HomeRootFragment.newInstance();
+            mFragments[THIRD] = HomeRootFragment.newInstance();
+            mFragments[FOURTH] = HomeRootFragment.newInstance();
+            mFragments[FIFTH] = HomeRootFragment.newInstance();
+
+            loadMultipleRootFragment(R.id.fl_container, FIRST,
+                    mFragments[FIRST],
+                    mFragments[SECOND],
+                    mFragments[THIRD],
+                    mFragments[FOURTH],
+                    mFragments[FIFTH]);
+
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
             // 这里我们需要拿到mFragments的引用,也可以通过getSupportFragmentManager.getFragments()
@@ -89,8 +102,21 @@ public class MainActivity extends BaseCompatActivity {
             mFragments[FOURTH] = findFragment(BookRootFragment.class);
             mFragments[FIFTH] = findFragment(PersonalRootFragment.class);
         }
+        //MovingImageView的相关操作
+        mivMenu = (MovingImageView) nvMenu.getHeaderView(0).findViewById(R.id.miv_menu);
+        civHead = (CircleImageView) nvMenu.getHeaderView(0).findViewById(R.id.civ_head);
+        // TODO: 2017/12/13 此处将实际应用中替换成服务器中拉取的图片
 
-        //botomsheetbar
+        //点击头像的操作:底部tab跳转到[个人]
+        civHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dlRoot.closeDrawer(GravityCompat.START);
+                bottomNavigationView.setSelectedItemId(R.id.menu_item_personal);
+            }
+        });
+
+        //botomsheetbar 的点击效果
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView
                 .OnNavigationItemSelectedListener() {
@@ -119,6 +145,35 @@ public class MainActivity extends BaseCompatActivity {
             }
         });
 
+        dlRoot.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                mivMenu.pauseMoving();
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                if (mivMenu.getMovingState() == MovingViewAnimator.MovingState.stop) {
+                    mivMenu.startMoving();
+                } else if (mivMenu.getMovingState() == MovingViewAnimator.MovingState.pause) {
+                    mivMenu.resumeMoving();
+                }
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                mivMenu.stopMoving();
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                if (mivMenu.getMovingState() == MovingViewAnimator.MovingState.stop) {
+                    mivMenu.startMoving();
+                } else if (mivMenu.getMovingState() == MovingViewAnimator.MovingState.pause) {
+                    mivMenu.resumeMoving();
+                }
+            }
+        });
     }
 
     @Override
@@ -126,4 +181,11 @@ public class MainActivity extends BaseCompatActivity {
         return R.layout.activity_main;
     }
 
+    //实现homrfragent里的接口,重写onOpen方法,在改方法中做判断,如果抽屉是关闭的,则打开
+    @Override
+    public void onOpen() {
+        if (!dlRoot.isDrawerOpen(GravityCompat.START)) {
+            dlRoot.openDrawer(GravityCompat.START);
+        }
+    }
 }

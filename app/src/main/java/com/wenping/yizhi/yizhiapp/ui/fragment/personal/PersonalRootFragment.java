@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.wenping.yizhi.yizhiapp.R;
 import com.wenping.yizhi.yizhiapp.ui.fragment.base.fragment.BaseCompatFragment;
+import com.wenping.yizhi.yizhiapp.ui.fragment.personal.child.PersonalUpperFragment;
 
 /**
  * Created by YinZeTong on 2017/12/12.
@@ -36,7 +37,7 @@ public class PersonalRootFragment extends BaseCompatFragment{
         if (savedInstanceState == null) {
             loadFragment();
         } else {
-            if (findChildFragment(PersonalRootFragment.class)==null) {
+            if (findChildFragment(PersonalUpperFragment.class)==null) {
                 loadFragment();
             }
         }
@@ -45,7 +46,7 @@ public class PersonalRootFragment extends BaseCompatFragment{
 
     private void loadFragment() {
         // TODO: 2017/12/12  
-//        loadRootFragment(R.id.fl_personal_container_upper, PersonalUpperFragment.newInstance());
+        loadRootFragment(R.id.fl_personal_container_upper, PersonalUpperFragment.newInstance());
 //        loadRootFragment(R.id.fl_personal_container_lower, PersonalLowerFragment.newInstance());
     }
 }
