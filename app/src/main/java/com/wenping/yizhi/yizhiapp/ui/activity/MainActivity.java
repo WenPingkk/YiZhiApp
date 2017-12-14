@@ -144,7 +144,6 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
                 return true;
             }
         });
-        
         nvMenu.getMenu().findItem(R.id.item_model).setTitle(SpUtils.getNightModel(mContext)?"夜间模式":"日间模式");
         //左侧抽屉对应的item点击效果
         nvMenu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
