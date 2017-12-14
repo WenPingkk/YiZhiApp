@@ -84,7 +84,7 @@
         android:descendantFocusability="blocksDescendants"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.zyw.horrarndoo.sdk.widgets.NestedScrollWebView
+        <com.wenping.yizhi.yizhiapp.widget.child.NestedScrollWebView
             android:id="@+id/nswv_detail_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

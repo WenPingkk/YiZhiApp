@@ -9,7 +9,7 @@ import com.wenping.yizhi.yizhiapp.ui.fragment.base.fragment.BaseCompatFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.gankio.child.GankIoFragment;
 
 /**
- * Created by YinZeTong on 2017/12/12.
+ * Created by WenPing on 2017/12/12.
  * <p>
  */
 

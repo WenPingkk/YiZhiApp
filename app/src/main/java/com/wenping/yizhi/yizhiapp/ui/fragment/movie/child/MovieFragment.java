@@ -14,7 +14,7 @@ import com.wenping.yizhi.yizhiapp.ui.fragment.base.fragment.BaseRecycleFragment;
 import java.util.List;
 
 /**
- * Created by YinZeTong on 2017/12/13.
+ * Created by WenPing on 2017/12/13.
  */
 
 public class MovieFragment extends BaseRecycleFragment<MovieMainContract.MovieMainPresenter,

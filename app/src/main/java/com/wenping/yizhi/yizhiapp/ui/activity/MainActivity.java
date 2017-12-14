@@ -21,6 +21,7 @@ import com.wenping.yizhi.yizhiapp.ui.fragment.home.HomeRootFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.home.child.HomeFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.movie.MovieRootFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.personal.PersonalRootFragment;
+import com.wenping.yizhi.yizhiapp.utils.SpUtils;
 import com.wenping.yizhi.yizhiapp.widget.MovingImageView;
 import com.wenping.yizhi.yizhiapp.widget.MovingViewAnimator;
 
@@ -35,7 +36,6 @@ import me.yokeyword.fragmentation.SupportFragment;
  */
 
 public class MainActivity extends BaseCompatActivity implements HomeFragment.OnOpenDrawerLayoutListener{
-
 
     @BindView(R.id.nv_menu)
     NavigationView nvMenu;
@@ -105,8 +105,8 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
         //MovingImageView的相关操作
         mivMenu = (MovingImageView) nvMenu.getHeaderView(0).findViewById(R.id.miv_menu);
         civHead = (CircleImageView) nvMenu.getHeaderView(0).findViewById(R.id.civ_head);
-        // TODO: 2017/12/13 此处将实际应用中替换成服务器中拉取的图片
-
+        // 此处将实际应用中替换成服务器中拉取的图片
+        // TODO: 2017/12/14 代码待完善
         //点击头像的操作:底部tab跳转到[个人]
         civHead.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +144,31 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
                 return true;
             }
         });
+        
+        nvMenu.getMenu().findItem(R.id.item_model).setTitle(SpUtils.getNightModel(mContext)?"夜间模式":"日间模式");
+        //左侧抽屉对应的item点击效果
+        nvMenu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.group_item_github:
+
+                        break;
+                    case R.id.group_item_more:
+
+                        break;
+                    case R.id.group_item_qr_code:
+
+                        break;
+                    case R.id.group_item_share_project:
+
+                        break;
+                        default:
+                            break;
+                }
+                return false;
+            }
+        });
 
         dlRoot.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
@@ -176,6 +201,7 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
         });
     }
 
+    //获取当前layouty的布局ID,用于设置当前布局
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;

@@ -71,11 +71,10 @@ public class FlashActivity extends BaseCompatActivity {
             @Override
             public void accept(Boolean granted) throws Exception {
                 if (!granted) {
-                    ToastUtils.showToast("App未获取");
-                } else {
+                    ToastUtils.showToast("App未获取suoyou quanxian ");
                     //不管是否获取全部权限，进入主页面
-                    initCountDownTimer();
                 }
+                    initCountDownTimer();
             }
         });
         //分别请求权限

@@ -11,7 +11,7 @@ import com.wenping.yizhi.yizhiapp.ui.fragment.base.BasePresenter;
 import com.wenping.yizhi.yizhiapp.ui.fragment.base.fragment.BaseMVPCompatFragment;
 
 /**
- * Created by YinZeTong on 2017/12/13.
+ * Created by WenPing on 2017/12/13.
  */
 
 public class BookFragment extends BaseMVPCompatFragment<BookMainContract.BookMainPresenter,

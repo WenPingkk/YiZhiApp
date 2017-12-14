@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.wenping.yizhi.yizhiapp.R;
 import com.wenping.yizhi.yizhiapp.global.GlobalApplication;
 import com.wenping.yizhi.yizhiapp.manager.AppManager;
+import com.wenping.yizhi.yizhiapp.utils.AppUtils;
 import com.wenping.yizhi.yizhiapp.utils.SpUtils;
 import com.wenping.yizhi.yizhiapp.utils.StatusBarUtils;
 import com.wenping.yizhi.yizhiapp.utils.ThemeUtils;
@@ -53,10 +54,15 @@ public abstract class BaseCompatActivity extends SupportActivity {
     private void init(Bundle savedInstanceState) {
         setTheme(ThemeUtils.themeArr[SpUtils.getThemeIndex(this)][
                 SpUtils.getNightModel(this) ? 1 : 0]);
+        //获取页面布局方式的方法getLayoutId();
         setContentView(getLayoutId());
+        //ButterKnife,来绑定
         ButterKnife.bind(this);
+        //设置状态栏全透明
         StatusBarUtils.setTransparent(this);
+        //设置屏幕朝向为竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //protected 修饰符修饰的方法,初始化数据
         initData();
         initView(savedInstanceState);
         AppManager.getAppManager().addActivity(this);
@@ -77,9 +83,8 @@ public abstract class BaseCompatActivity extends SupportActivity {
      * 子类可以复写此方法初始化子类数据
      */
     protected void initData() {
-        //修改了这里
-//        mContext = AppUtils.getContext();
-        mContext = this;
+        //获取上下文对象
+        mContext = AppUtils.getContext();
         mApplication = (GlobalApplication) getApplication();
         mWaitPorgressDialog = new WaitPorgressDialog(this);
         isTransAnim = true;

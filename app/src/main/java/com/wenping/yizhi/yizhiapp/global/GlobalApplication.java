@@ -11,6 +11,7 @@ import com.wansir.lib.logger.Logger;
 
 /**
  * Created by WenPing on 2017/12/11.
+ * MobApplication导入了MobComons的jar包后引入的
  */
 
 public class GlobalApplication extends MobApplication implements ProtectedMemberKeeper{
@@ -21,6 +22,7 @@ public class GlobalApplication extends MobApplication implements ProtectedMember
     protected static int mainThreadId;
     private static GlobalApplication sApp;
 
+    //同步锁,但是没用到这个方法
     public static synchronized GlobalApplication getApplication(){ return sApp;}
 
     @Override
@@ -31,7 +33,7 @@ public class GlobalApplication extends MobApplication implements ProtectedMember
         //myTid什么意思呢
         mainThreadId = android.os.Process.myTid();
 
-        //这是什么意思呢
+        //初始化Looger,并且根据BuildConfigField的字段来判断是否打印log
         Logger.init(LOG_TAG).logLevel(BuildConfig.IS_SHOW_LOG? LogLevel.FULL:LogLevel.NONE);
     }
 
