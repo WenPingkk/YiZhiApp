@@ -24,6 +24,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 /**
  * Created by WenPing on 2017/12/11.
+ *
  */
 
 public abstract class BaseCompatActivity extends SupportActivity {

@@ -1,5 +1,8 @@
 package com.wenping.yizhi.yizhiapp.ui.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,22 +16,34 @@ import android.widget.FrameLayout;
 import com.wansir.lib.logger.Logger;
 import com.wenping.yizhi.yizhiapp.R;
 import com.wenping.yizhi.yizhiapp.base.activity.BaseCompatActivity;
+import com.wenping.yizhi.yizhiapp.constant.BundleKeyConstant;
+import com.wenping.yizhi.yizhiapp.constant.HeadConstant;
 import com.wenping.yizhi.yizhiapp.helper.BottomNavigationViewHelper;
 import com.wenping.yizhi.yizhiapp.rxbus.RxBus;
+import com.wenping.yizhi.yizhiapp.ui.activity.detail.BaseWebViewLoadActivity;
+import com.wenping.yizhi.yizhiapp.ui.activity.detail.WebViewLoadActivity;
 import com.wenping.yizhi.yizhiapp.ui.fragment.book.BookRootFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.gankio.GankIoRootFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.home.HomeRootFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.home.child.HomeFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.movie.MovieRootFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.personal.PersonalRootFragment;
+import com.wenping.yizhi.yizhiapp.utils.AppUtils;
+import com.wenping.yizhi.yizhiapp.utils.FileUtils;
 import com.wenping.yizhi.yizhiapp.utils.SpUtils;
+import com.wenping.yizhi.yizhiapp.utils.ToastUtils;
 import com.wenping.yizhi.yizhiapp.widget.MovingImageView;
 import com.wenping.yizhi.yizhiapp.widget.MovingViewAnimator;
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragment;
+import me.yokeyword.fragmentation.SupportHelper;
 
 /**
  * 主页
@@ -85,6 +100,7 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
             mFragments[FOURTH] = HomeRootFragment.newInstance();
             mFragments[FIFTH] = HomeRootFragment.newInstance();
 
+            //加载多个同级根Fragment,类似Wechat, QQ主页的场景
             loadMultipleRootFragment(R.id.fl_container, FIRST,
                     mFragments[FIRST],
                     mFragments[SECOND],
@@ -93,6 +109,16 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
                     mFragments[FIFTH]);
 
         } else {
+
+            /**
+             * findFragment 方法
+             * 获取栈内的fragment对象
+             */
+
+            //public <T extends ISupportFragment> T findFragment(Class<T> fragmentClass) {
+            //    return SupportHelper.findFragment(getSupportFragmentManager(), fragmentClass);
+            //}
+
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
             // 这里我们需要拿到mFragments的引用,也可以通过getSupportFragmentManager.getFragments()
             // 自行进行判断查找(效率更高些),用下面的方法查找更方便些
@@ -102,11 +128,19 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
             mFragments[FOURTH] = findFragment(BookRootFragment.class);
             mFragments[FIFTH] = findFragment(PersonalRootFragment.class);
         }
+        //左侧抽屉的相关操作
         //MovingImageView的相关操作
         mivMenu = (MovingImageView) nvMenu.getHeaderView(0).findViewById(R.id.miv_menu);
         civHead = (CircleImageView) nvMenu.getHeaderView(0).findViewById(R.id.civ_head);
         // 此处将实际应用中替换成服务器中拉取的图片
-        // TODO: 2017/12/14 代码待完善
+        Uri headUri = Uri.fromFile(new File(getCacheDir(), HeadConstant.HEAD_IMAGE_NAME+".jpg"));
+        if (headUri != null) {
+            String cropImagePath = FileUtils.getRealFilePathFromUri(AppUtils.getContext(),headUri);
+            Bitmap bitmap = BitmapFactory.decodeFile(cropImagePath);
+            if (bitmap != null) {
+                civHead.setImageBitmap(bitmap);
+            }
+        }
         //点击头像的操作:底部tab跳转到[个人]
         civHead.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +178,7 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
                 return true;
             }
         });
+
         nvMenu.getMenu().findItem(R.id.item_model).setTitle(SpUtils.getNightModel(mContext)?"夜间模式":"日间模式");
         //左侧抽屉对应的item点击效果
         nvMenu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -151,21 +186,43 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.group_item_github:
-
+                        Bundle bundle = new Bundle();
+                        bundle.putString(BundleKeyConstant.ARG_KEY_WEB_VIEW_LOAD_URL,"YiZhiApp");
+                        bundle.putString(BundleKeyConstant.ARG_KEY_WEB_VIEW_LOAD_URL
+                        ,"https://github.com/WenPingkk/YiZhiApp");
+                        startActivity(WebViewLoadActivity.class,bundle);
                         break;
                     case R.id.group_item_more:
-
+                        Bundle bundle12 = new Bundle();
+                        bundle12.putString(BundleKeyConstant.ARG_KEY_WEB_VIEW_LOAD_TITLE,"WenPing");
+                        bundle12.putString(BundleKeyConstant.ARG_KEY_WEB_VIEW_LOAD_URL,"http://blog.csdn.net/topwilling");
+                        startActivity(WebViewLoadActivity.class,bundle12);
                         break;
                     case R.id.group_item_qr_code:
-
+                        //显示二维码并分享
                         break;
                     case R.id.group_item_share_project:
+                        showShare();
+                        break;
 
+                    case R.id.item_model:
+                        //日间模式
+                        SpUtils.setNightModel(mContext,!SpUtils.getNightModel(mContext));
+                        //重新加载一次
+                        MainActivity.this.reload();
+                        break;
+                    case R.id.item_about:
+                        //关于
+                        ToastUtils.showToast("待完善");
+//                        startActivity(AboutA);
                         break;
                         default:
                             break;
                 }
-                return false;
+                item.setCheckable(false);
+                dlRoot.closeDrawer(GravityCompat.START);
+                //return true 对应的意思是:
+                return true;
             }
         });
 
@@ -200,6 +257,59 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
         });
     }
 
+    @Override
+    public void onBackPressedSupport() {
+        //要注释掉super方法,防止调用父类的逻辑
+        //super.onBackPressedSupport();
+
+        if (dlRoot.isDrawerOpen(GravityCompat.START)) {
+            dlRoot.closeDrawer(GravityCompat.START);
+            return;
+        }
+        //如果当前存在的fragment>1,当前fragment出栈
+        if (getFragmentManager().getBackStackEntryCount() > 1) {
+            pop();
+        } else {
+            if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
+                setIsTransAnim(false);
+                finish();
+            } else {
+                TOUCH_TIME = System.currentTimeMillis();
+                ToastUtils.showToast(R.string.press_again);
+            }
+        }
+    }
+
+
+    private void showShare() {
+        //微信朋友圈和收藏分享功能未完善
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+
+        // 分享时Notification的图标和文字  2.5.9以后的版本不     调用此方法
+        //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
+        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+        oks.setTitle("YiZhiApp");
+        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+        oks.setTitleUrl("https://github.com/WenPingkk/YiZhiApp");
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("这是仿一之App");
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        // url仅在微信（包括好友和朋友圈）中使用
+        oks.setUrl("https://github.com/WenPingkk/YiZhiApp");
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        oks.setComment("仿一之App");
+        // site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite(getString(R.string.app_name));
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("https://github.com/WenPingkk/YiZhiApp");
+
+        // 启动分享GUI
+        oks.show(this);
+    }
+
     //获取当前layouty的布局ID,用于设置当前布局
     @Override
     protected int getLayoutId() {
@@ -213,4 +323,7 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
             dlRoot.openDrawer(GravityCompat.START);
         }
     }
+
+    // TODO: 2017/12/15 RxBus接收图片和uri的操作!
+
 }

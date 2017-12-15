@@ -13,13 +13,14 @@ import com.wenping.yizhi.yizhiapp.R;
  * 邮箱：424346976@qq.com
  */
 public class ThemeUtils {
+    //二维数组,
     public static int[][] themeArr = {
             {R.style.AppThemeLight_Red, R.style.AppThemeDark_Red},
             {R.style.AppThemeLight_Pink, R.style.AppThemeDark_Pink},
             {R.style.AppThemeLight_Purple, R.style.AppThemeDark_Purple},
             {R.style.AppThemeLight_DeepPurple, R.style.AppThemeDark_DeepPurple},
             {R.style.AppThemeLight_Indigo, R.style.AppThemeDark_Indigo},
-            {R.style.AppThemeLight_Blue, R.style.AppThemeDark_Blue},
+            {R.style.AppThemeLight_Blue, R.style.AppThemeDark_Blue},//白天模式[5,0],黑夜模式[5,1]
             {R.style.AppThemeLight_LightBlue, R.style.AppThemeDark_LightBlue},
             {R.style.AppThemeLight_Cyan, R.style.AppThemeDark_Cyan},
             {R.style.AppThemeLight_Teal, R.style.AppThemeDark_Teal},

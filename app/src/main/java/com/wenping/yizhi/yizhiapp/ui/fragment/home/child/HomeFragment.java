@@ -21,6 +21,7 @@ import com.wenping.yizhi.yizhiapp.base.activity.BaseCompatActivity;
 import com.wenping.yizhi.yizhiapp.constant.BundleKeyConstant;
 import com.wenping.yizhi.yizhiapp.constant.TabFragmentIndex;
 import com.wenping.yizhi.yizhiapp.contract.contract.home.HomeMainContract;
+import com.wenping.yizhi.yizhiapp.ui.activity.detail.WebViewLoadActivity;
 import com.wenping.yizhi.yizhiapp.ui.fragment.base.BasePresenter;
 import com.wenping.yizhi.yizhiapp.ui.fragment.base.fragment.BaseMVPCompatFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.home.base.HomeMainPresenter;
@@ -64,6 +65,7 @@ public class HomeFragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        //Mainactivity实现了OnOpenDrawerLayoutListener接口,Homefragment 依赖的activity为Mainactivity时
         if (context instanceof OnOpenDrawerLayoutListener) {
             mOnOpenDrawerLayoutListener = (OnOpenDrawerLayoutListener) context;
         }
@@ -95,6 +97,7 @@ public class HomeFragment
             @Override
             public void onClick(View v) {
                 if (mOnOpenDrawerLayoutListener != null) {
+                    //开启抽屉;接口回调
                     mOnOpenDrawerLayoutListener.onOpen();
                 }
             }
@@ -113,9 +116,9 @@ public class HomeFragment
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString(BundleKeyConstant.ARG_KEY_WEB_VIEW_LOAD_TITLE, "YiZhi");
-                bundle.putString(BundleKeyConstant.ARG_KEY_WEB_VIEW_LOAD_URL, "https://github.com/Horrarndoo/YiZhi");
-//                startNewActivity(WebViewLoadActivity.);
+                bundle.putString(BundleKeyConstant.ARG_KEY_WEB_VIEW_LOAD_TITLE, "YiZhiApp");
+                bundle.putString(BundleKeyConstant.ARG_KEY_WEB_VIEW_LOAD_URL, "https://github.com/WenPingkk/YiZhiApp");
+                startNewActivity(WebViewLoadActivity.class);
             }
         });
 
@@ -127,6 +130,9 @@ public class HomeFragment
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.night:
+        //夜间模式的实现原理:通过SpUtils的setNightMode方法,把当前的状态保存[true/false];接着调用BaseCompatActivity的reload方法,重新进入项目
+        //此时会调用BaseCompatActivity中onCreate的方法下的init方法:setTheme(ThemeUtils.themeArr[SpUtils.getThemeIndex(this)][SpUtils.getNightModel(this) ? 1 : 0]);
+        //实现切换到夜间模式
                         item.setChecked(!item.isChecked());
                         SpUtils.setNightModel(mContext, item.isChecked());
                         ((BaseCompatActivity) mActivity).reload();

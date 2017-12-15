@@ -137,5 +137,13 @@ dependencies {
 
     //BaseRecyclerViewAdapterHelper
     compile "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.BaseRecyclerViewAdapterHelperVersion"
-    implementation files('libs/MobCommons-2017.0607.1116.jar')
+    implementation files('libs/ShareSDK-QQ-3.1.2.jar')
+    implementation files('libs/MobCommons-2017.1201.1507.jar')
+    implementation files('libs/MobTools-2017.1201.1507.jar')
+    implementation files('libs/ShareSDK-Wechat-3.1.2.jar')
+    implementation files('libs/ShareSDK-QZone-3.1.2.jar')
+    implementation files('libs/ShareSDK-Core-3.1.2.jar')
+    implementation files('libs/ShareSDK-Wechat-Favorite-3.1.2.jar')
+    implementation files('libs/ShareSDK-Wechat-Core-3.1.2.jar')
+    implementation files('libs/ShareSDK-Wechat-Moments-3.1.2.jar')
 }

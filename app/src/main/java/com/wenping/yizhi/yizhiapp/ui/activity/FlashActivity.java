@@ -26,6 +26,7 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by WenPing on 2017/12/11.
+ * 
  */
 
 public class FlashActivity extends BaseCompatActivity {
@@ -52,6 +53,7 @@ public class FlashActivity extends BaseCompatActivity {
     @Override
     public void onBackPressedSupport() {
         super.onBackPressedSupport();
+        //setIsTransAnim,表示 页面跳转时页面的效果是否启动:缩小放大这种模式
         mIsCancle = true;
         setIsTransAnim(false);
         this.finish();
@@ -70,6 +72,7 @@ public class FlashActivity extends BaseCompatActivity {
         ).subscribe(new Consumer<Boolean>() {
             @Override
             public void accept(Boolean granted) throws Exception {
+                //granted对应的不是所有的,主要有部分权限开启了,则它为true
                 if (!granted) {
                     ToastUtils.showToast("App未获取suoyou quanxian ");
                     //不管是否获取全部权限，进入主页面
