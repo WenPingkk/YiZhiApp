@@ -11,7 +11,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import com.wansir.lib.logger.Logger;
 import com.wenping.yizhi.yizhiapp.R;
@@ -20,7 +19,6 @@ import com.wenping.yizhi.yizhiapp.constant.BundleKeyConstant;
 import com.wenping.yizhi.yizhiapp.constant.HeadConstant;
 import com.wenping.yizhi.yizhiapp.helper.BottomNavigationViewHelper;
 import com.wenping.yizhi.yizhiapp.rxbus.RxBus;
-import com.wenping.yizhi.yizhiapp.ui.activity.detail.BaseWebViewLoadActivity;
 import com.wenping.yizhi.yizhiapp.ui.activity.detail.WebViewLoadActivity;
 import com.wenping.yizhi.yizhiapp.ui.fragment.book.BookRootFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.gankio.GankIoRootFragment;
@@ -38,12 +36,10 @@ import com.wenping.yizhi.yizhiapp.widget.MovingViewAnimator;
 import java.io.File;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragment;
-import me.yokeyword.fragmentation.SupportHelper;
 
 /**
  * 主页
@@ -74,6 +70,12 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
     private static final long WAIT_TIME = 2000L;
     private long TOUCH_TIME = 0;
 
+    //获取当前layouty的布局ID,用于设置当前布局
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
     //注册rxBus
     @Override
     protected void initData() {
@@ -101,7 +103,8 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
             mFragments[FIFTH] = HomeRootFragment.newInstance();
 
             //加载多个同级根Fragment,类似Wechat, QQ主页的场景
-            loadMultipleRootFragment(R.id.fl_container, FIRST,
+            loadMultipleRootFragment(
+                    R.id.fl_container, FIRST,
                     mFragments[FIRST],
                     mFragments[SECOND],
                     mFragments[THIRD],
@@ -151,6 +154,26 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
         });
 
         //botomsheetbar 的点击效果
+
+        /**
+         * show一个Fragment,hide其他同栈所有Fragment
+         * 使用该方法时，要确保同级栈内无多余的Fragment,(只有通过loadMultipleRootFragment()载入的Fragment)
+         * <p>
+         * 建议使用更明确的{@link #showHideFragment(ISupportFragment, ISupportFragment)}
+         *
+         * @param showFragment 需要show的Fragment
+         */
+//        public void showHideFragment(ISupportFragment showFragment) {
+//            mDelegate.showHideFragment(showFragment);
+//        }
+
+        /**
+         * show一个Fragment,hide一个Fragment ; 主要用于类似微信主页那种 切换tab的情况
+         */
+//        public void showHideFragment(ISupportFragment showFragment, ISupportFragment hideFragment) {
+//            mDelegate.showHideFragment(showFragment, hideFragment);
+//        }
+
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView
                 .OnNavigationItemSelectedListener() {
@@ -226,21 +249,31 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
             }
         });
 
+        /**
+         * drawerLayout的监听器
+         */
         dlRoot.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
+                //movingImage 停止移动
                 mivMenu.pauseMoving();
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
+                //如果movigImage处于静止状态则开始移动
                 if (mivMenu.getMovingState() == MovingViewAnimator.MovingState.stop) {
                     mivMenu.startMoving();
+                    //如果movingImageView处于暂停状态则 :恢复移动
                 } else if (mivMenu.getMovingState() == MovingViewAnimator.MovingState.pause) {
                     mivMenu.resumeMoving();
                 }
             }
 
+            /**
+             * 抽屉关闭则movingImage停止运动
+             * @param drawerView
+             */
             @Override
             public void onDrawerClosed(View drawerView) {
                 mivMenu.stopMoving();
@@ -249,8 +282,10 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
             @Override
             public void onDrawerStateChanged(int newState) {
                 if (mivMenu.getMovingState() == MovingViewAnimator.MovingState.stop) {
+                    //开始移动
                     mivMenu.startMoving();
                 } else if (mivMenu.getMovingState() == MovingViewAnimator.MovingState.pause) {
+                    //恢复移动
                     mivMenu.resumeMoving();
                 }
             }
@@ -310,12 +345,6 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
         oks.show(this);
     }
 
-    //获取当前layouty的布局ID,用于设置当前布局
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_main;
-    }
-
     //实现homrfragent里的接口,重写onOpen方法,在改方法中做判断,如果抽屉是关闭的,则打开
     @Override
     public void onOpen() {
@@ -323,7 +352,7 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
             dlRoot.openDrawer(GravityCompat.START);
         }
     }
+    // TODO: 2017/12/15 RxBus接收图片和uri的操作!这是在HeadSettingActivity中用到的，方式类似EVENTBUS;
 
-    // TODO: 2017/12/15 RxBus接收图片和uri的操作!
 
 }

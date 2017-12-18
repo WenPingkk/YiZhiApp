@@ -74,7 +74,7 @@ public class FlashActivity extends BaseCompatActivity {
             public void accept(Boolean granted) throws Exception {
                 //granted对应的不是所有的,主要有部分权限开启了,则它为true
                 if (!granted) {
-                    ToastUtils.showToast("App未获取suoyou quanxian ");
+                    ToastUtils.showToast("App未获取所有权限,部分功能可能无法使用");
                     //不管是否获取全部权限，进入主页面
                 }
                     initCountDownTimer();

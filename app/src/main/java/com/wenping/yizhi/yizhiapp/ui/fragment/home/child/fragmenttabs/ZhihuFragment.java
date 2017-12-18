@@ -1,31 +1,28 @@
-package com.wenping.yizhi.yizhiapp.ui.fragment.home.child;
+package com.wenping.yizhi.yizhiapp.ui.fragment.home.child.fragmenttabs;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.wenping.yizhi.yizhiapp.R;
 import com.wenping.yizhi.yizhiapp.adapter.ZhihuAdapter;
 import com.wenping.yizhi.yizhiapp.contract.contract.home.tabs.ZhihuContract;
 import com.wenping.yizhi.yizhiapp.model.bean.zhihu.ZhihuDailyItemBean;
+import com.wenping.yizhi.yizhiapp.presenter.home.tabs.ZhihuPresenter;
 import com.wenping.yizhi.yizhiapp.ui.fragment.base.BasePresenter;
 import com.wenping.yizhi.yizhiapp.ui.fragment.base.fragment.BaseRecycleFragment;
-import com.wenping.yizhi.yizhiapp.ui.fragment.home.tabs.ZhihuPresenter;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by WenPing on 2017/12/13.
+ *
  */
 
 public class ZhihuFragment extends BaseRecycleFragment<ZhihuContract.ZhihuPresenter, ZhihuContract.IZhihuModel> implements ZhihuContract.IZhihuView, BaseQuickAdapter.RequestLoadMoreListener {
@@ -112,11 +109,18 @@ public class ZhihuFragment extends BaseRecycleFragment<ZhihuContract.ZhihuPresen
         mPresenter.loadMoreList();
     }
 
+    /**
+     * onErrorViewClick和showLoading方法在errorview显示时响应对应的点击效果！！
+     * @param view view
+     */
     @Override
     protected void onErrorViewClick(View view) {
         mPresenter.loadLatestList();
     }
 
+    /**
+     * 在懒加载 onLazyInitView方法中也是调用的      showLoading()
+     */
     @Override
     protected void showLoading() {
         mZhihuAdapter.setEmptyView(loadingView);

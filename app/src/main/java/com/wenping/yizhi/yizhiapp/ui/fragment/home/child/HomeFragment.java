@@ -25,6 +25,9 @@ import com.wenping.yizhi.yizhiapp.ui.activity.detail.WebViewLoadActivity;
 import com.wenping.yizhi.yizhiapp.ui.fragment.base.BasePresenter;
 import com.wenping.yizhi.yizhiapp.ui.fragment.base.fragment.BaseMVPCompatFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.home.base.HomeMainPresenter;
+import com.wenping.yizhi.yizhiapp.ui.fragment.home.child.fragmenttabs.WangyiFragment;
+import com.wenping.yizhi.yizhiapp.ui.fragment.home.child.fragmenttabs.WeiXinFragment;
+import com.wenping.yizhi.yizhiapp.ui.fragment.home.child.fragmenttabs.ZhihuFragment;
 import com.wenping.yizhi.yizhiapp.utils.SpUtils;
 
 import java.util.ArrayList;
@@ -38,9 +41,9 @@ import butterknife.BindView;
  * Created by WenPing on 2017/12/12.
  */
 
-public class HomeFragment
-        extends BaseMVPCompatFragment<HomeMainContract.HomeMainPresenter,
+public class HomeFragment extends BaseMVPCompatFragment<HomeMainContract.HomeMainPresenter,
         HomeMainContract.IHomeMainModel> implements HomeMainContract.IHomeMainView {
+
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.tl_tabs)
@@ -121,7 +124,7 @@ public class HomeFragment
                 startNewActivity(WebViewLoadActivity.class);
             }
         });
-
+        //toolbar右侧menu的显示效果
         mToolbar.inflateMenu(R.menu.toolbar_menu);
         mToolbar.getMenu().findItem(R.id.night)
                 .setChecked(SpUtils.getNightModel(mContext));
@@ -135,6 +138,7 @@ public class HomeFragment
         //实现切换到夜间模式
                         item.setChecked(!item.isChecked());
                         SpUtils.setNightModel(mContext, item.isChecked());
+                        //重新设置夜间模式后要重新reload一次，才能显示效果。
                         ((BaseCompatActivity) mActivity).reload();
                         break;
                     default:
@@ -143,6 +147,7 @@ public class HomeFragment
                 return false;
             }
         });
+
         ToolbarAnimManager.animIn(mContext, mToolbar);
     }
 
@@ -152,7 +157,6 @@ public class HomeFragment
     public BasePresenter initPresenter() {
         return HomeMainPresenter.newInstance();
     }
-
 
     @Override
     public void showTabList(String[] tabs) {
@@ -165,10 +169,10 @@ public class HomeFragment
                     mFragments.add(ZhihuFragment.newInstance());
                     break;
                 case TabFragmentIndex.TAB_WANGYI_INDEX:
-                    mFragments.add(ZhihuFragment.newInstance());
+                    mFragments.add(WangyiFragment.newInstance());
                     break;
                 case TabFragmentIndex.TAB_WEIXIN_INDEX:
-                    mFragments.add(ZhihuFragment.newInstance());
+                    mFragments.add(WeiXinFragment.newInstance());
                     break;
 
                 default:
@@ -178,6 +182,7 @@ public class HomeFragment
         mVpFragment.setAdapter(new FragmentAdapter(getChildFragmentManager(), mFragments));
         mVpFragment.setCurrentItem(TabFragmentIndex.TAB_ZHIHU_INDEX);
         mTlTabs.setupWithViewPager(mVpFragment);
+        //Set the position of the vertical scroll bar
         mTlTabs.setVerticalScrollbarPosition(TabFragmentIndex.TAB_ZHIHU_INDEX);
         for (int i = 0; i < tabs.length; i++) {
             mTlTabs.getTabAt(i).setText(tabs[i]);

@@ -20,6 +20,7 @@ import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * Created by WenPing on 2017/12/12.
+ *
  */
 
 public abstract class BaseCompatFragment extends SupportFragment{
@@ -54,6 +55,7 @@ public abstract class BaseCompatFragment extends SupportFragment{
         mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         TAG = getClass().getSimpleName();
         binder = ButterKnife.bind(this, view);
+        //获取Activity传过来的值.
         getBundle(getArguments());
         initData();
         initUI(view, savedInstanceState);

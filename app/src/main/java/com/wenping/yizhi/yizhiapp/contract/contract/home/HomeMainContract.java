@@ -11,15 +11,16 @@ import com.wenping.yizhi.yizhiapp.ui.fragment.base.IBaseModel;
  */
 
 public interface HomeMainContract {
+    //在接口里创建了抽象类...,并且创建了一个抽象方法
     //主页接口
     abstract class HomeMainPresenter extends BasePresenter<IHomeMainModel, IHomeMainView> {
         public abstract void getTabList();
     }
-
+    //创建子接口,继承自IBaseModel接口
     interface IHomeMainModel extends IBaseModel {
         String[] getTabs();
     }
-
+    //创建子接口,继承IBaseFragment接口
     interface IHomeMainView extends IBaseFragment {
         void showTabList(String[] tabs);
     }

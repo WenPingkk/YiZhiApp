@@ -17,6 +17,7 @@ import java.util.List;
 
 /**
  * Created by WenPing on 2017/12/14.
+ *
  */
 
 public class ZhihuAdapter extends BaseCompatAdapter<ZhihuDailyItemBean,BaseViewHolder>{

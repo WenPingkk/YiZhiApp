@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">一之</string>
+    <string name="app_name">仿一之</string>
 
     <string name="zhihu_detail_title">知乎日报</string>
     <string name="wangyi_detail_title">热点新闻</string>

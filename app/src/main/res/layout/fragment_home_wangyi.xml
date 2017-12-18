@@ -4,7 +4,15 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <TextView
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="WangyiFragment"/>
+
     <android.support.v7.widget.RecyclerView
+        android:visibility="visible"
         android:id="@+id/rv_wangyi"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

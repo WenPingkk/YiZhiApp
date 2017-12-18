@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * Created by WenPing on 2017/12/14.
+ *
  */
 
 public abstract class BaseCompatAdapter<T,K extends BaseViewHolder> extends BaseQuickAdapter<T,K>{
@@ -37,5 +38,4 @@ public abstract class BaseCompatAdapter<T,K extends BaseViewHolder> extends Base
         //开启默认动画载入(仅开启加载 新item时开启动画)
         openLoadAnimation();
     }
-
 }

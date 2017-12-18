@@ -19,7 +19,6 @@ import io.reactivex.functions.Consumer;
  */
 
 public class ZhihuPresenter extends ZhihuContract.ZhihuPresenter {
-
     /**
      * 日报日期
      */
@@ -42,6 +41,7 @@ public class ZhihuPresenter extends ZhihuContract.ZhihuPresenter {
                 //Logger.e("mDate = " + mDate);
 
                 if (mIView != null)
+                    //更新显示列表
                     mIView.updateContentList(zhihuDailyListBean.getStories());
             }
         }, new Consumer<Throwable>() {
@@ -50,6 +50,8 @@ public class ZhihuPresenter extends ZhihuContract.ZhihuPresenter {
                 if (mIView != null) {
                     if (mIView.isVisiable())
                         mIView.showToast("Network error.");
+
+                    //网络异常
                     mIView.showNetworkError();
                 }
             }
@@ -69,12 +71,14 @@ public class ZhihuPresenter extends ZhihuContract.ZhihuPresenter {
                 mDate = zhihuDailyListBean.getDate();
                 //Logger.e("mdate = " + mDate);
                 if (mIView != null)
+                    //更新显示列表
                     mIView.updateContentList(zhihuDailyListBean.getStories());
             }
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
                 if (mIView != null) {
+                    //加载更多失败
                     mIView.showLoadMoreError();
                 }
             }
@@ -91,6 +95,7 @@ public class ZhihuPresenter extends ZhihuContract.ZhihuPresenter {
                     return;
 
                 if (aBoolean) {
+                    //改变被点击的item显示效果
                     mIView.itemNotifyChanged(position);
                 } else {
                     Logger.e("写入点击状态值失败");
