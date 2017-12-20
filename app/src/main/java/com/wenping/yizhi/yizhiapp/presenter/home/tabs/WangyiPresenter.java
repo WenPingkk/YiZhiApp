@@ -9,6 +9,7 @@ import com.wenping.yizhi.yizhiapp.contract.contract.home.tabs.WangyiContract;
 import com.wenping.yizhi.yizhiapp.model.bean.wangyi.WangyiNewsItemBean;
 import com.wenping.yizhi.yizhiapp.model.bean.wangyi.WangyiNewsListBean;
 import com.wenping.yizhi.yizhiapp.model.home.tabs.WangyiModel;
+import com.wenping.yizhi.yizhiapp.ui.activity.detail.WangyiDailyDetailActivity;
 import com.wenping.yizhi.yizhiapp.utils.StringUtils;
 
 import java.util.List;
@@ -134,7 +135,7 @@ public class WangyiPresenter extends WangyiContract.WangyiPresenter {
             bundle.putString(BundleKeyConstant.ARG_KEY_WANGYI_DETAIL_TITLE, item.getTitle());
             bundle.putString(BundleKeyConstant.ARG_KEY_WANGYI_DETAIL_IMAGE_URL, item.getImgsrc());
             bundle.putString(BundleKeyConstant.ARG_KEY_WANGYI_DETAIL_COPYRIGHT, item.getSource());
-            //mIView.startNewActivity(WangyiDailyDetailActivity.class, bundle);
+            mIView.startNewActivity(WangyiDailyDetailActivity.class, bundle);
         }
     }
 

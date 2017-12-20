@@ -54,6 +54,11 @@
         <activity android:name=".ui.activity.pic.ImageBrowseActivity"/>
 
         <activity android:name=".ui.activity.detail.WebViewLoadActivity"/>
+
+        <activity android:name=".ui.activity.detail.WangyiDailyDetailActivity"/>
+
+        <activity android:name=".ui.activity.detail.WeixinChoiceDetailActivity"/>
+
         <!-- ShareSDK的activity -->
         <activity
             android:name="com.mob.tools.MobUIShell"

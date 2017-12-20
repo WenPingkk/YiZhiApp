@@ -121,7 +121,7 @@ public class HomeFragment extends BaseMVPCompatFragment<HomeMainContract.HomeMai
                 Bundle bundle = new Bundle();
                 bundle.putString(BundleKeyConstant.ARG_KEY_WEB_VIEW_LOAD_TITLE, "YiZhiApp");
                 bundle.putString(BundleKeyConstant.ARG_KEY_WEB_VIEW_LOAD_URL, "https://github.com/WenPingkk/YiZhiApp");
-                startNewActivity(WebViewLoadActivity.class);
+                startNewActivity(WebViewLoadActivity.class,bundle);
             }
         });
         //toolbar右侧menu的显示效果
