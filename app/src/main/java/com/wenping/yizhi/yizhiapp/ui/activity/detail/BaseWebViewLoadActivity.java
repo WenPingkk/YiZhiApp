@@ -193,6 +193,7 @@ public abstract class BaseWebViewLoadActivity<P extends BaseWebViewLoadContract
                 super.onPageFinished(view, url);
                 // html加载完成之后，添加监听图片的点击js函数
                 addWebImageClickListner(view);
+                //加载完成后则给titlebar设置对应的标题
                 toolbar.setTitle(getToolbarTitle());
             }
 

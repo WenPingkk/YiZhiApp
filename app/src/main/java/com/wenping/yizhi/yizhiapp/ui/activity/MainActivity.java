@@ -97,9 +97,13 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
         //如果是第一进入页面
         if (savedInstanceState == null) {
             mFragments[FIRST] = HomeRootFragment.newInstance();
-            mFragments[SECOND] = HomeRootFragment.newInstance();
+
+            mFragments[SECOND] = GankIoRootFragment.newInstance();
+
             mFragments[THIRD] = HomeRootFragment.newInstance();
+
             mFragments[FOURTH] = HomeRootFragment.newInstance();
+
             mFragments[FIFTH] = HomeRootFragment.newInstance();
 
             //加载多个同级根Fragment,类似Wechat, QQ主页的场景

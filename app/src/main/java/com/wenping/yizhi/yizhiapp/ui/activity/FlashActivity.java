@@ -55,6 +55,7 @@ public class FlashActivity extends BaseCompatActivity {
         super.onBackPressedSupport();
         //setIsTransAnim,表示 页面跳转时页面的效果是否启动:缩小放大这种模式
         mIsCancle = true;
+        //overridePendingTransition过度动画，默认使用
         setIsTransAnim(false);
         this.finish();
     }

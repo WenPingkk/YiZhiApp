@@ -5,35 +5,34 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.wenping.yizhi.yizhiapp.R;
 import com.wenping.yizhi.yizhiapp.adapter.GankIoDayAdapter;
 import com.wenping.yizhi.yizhiapp.contract.contract.gankio.tabs.GankIoDayContract;
 import com.wenping.yizhi.yizhiapp.model.bean.gankio.GankIoDayItemBean;
+import com.wenping.yizhi.yizhiapp.presenter.gankio.tabs.GankIoDayPresenter;
+import com.wenping.yizhi.yizhiapp.rxbus.RxBus;
 import com.wenping.yizhi.yizhiapp.ui.fragment.base.BasePresenter;
 import com.wenping.yizhi.yizhiapp.ui.fragment.base.fragment.BaseRecycleFragment;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by WenPing on 2017/12/20.
  * <p>
  */
-// TODO: 2017/12/20 待完成
+
 public class GankIoDayFragment extends BaseRecycleFragment<GankIoDayContract
         .GankIoDayPresenter, GankIoDayContract.IGankIoDayModel> implements GankIoDayContract
         .IGankIoDayView {
 
     @BindView(R.id.rv_gankio_day)
     RecyclerView mRvGankioDay;
-    Unbinder unbinder;
+
     private GankIoDayAdapter mGankIoDayAdapter;
 
     public static GankIoDayFragment newInstance() {
@@ -43,50 +42,17 @@ public class GankIoDayFragment extends BaseRecycleFragment<GankIoDayContract
         return gankIoDayFragment;
     }
 
-    @NonNull
+
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public void initData() {
+        super.initData();
+        RxBus.get().register(this);
     }
 
     @Override
-    public void updateContentList(List<GankIoDayItemBean> list) {
-
-    }
-
-    @Override
-    public void itemNotifyChanged(int position) {
-
-    }
-
-    @Override
-    public void showNetworkError() {
-
-    }
-
-    @Override
-    public void showLoadMoreError() {
-
-    }
-
-    @Override
-    public void showNoMoreData() {
-
-    }
-
-    @Override
-    protected void onErrorViewClick(View view) {
-
-    }
-
-    @Override
-    protected void showLoading() {
-
-    }
-
-    @Override
-    public void itemNotifyChanged(int position, GankIoDayItemBean bean) {
-
+    public void onDestroy() {
+        super.onDestroy();
+        RxBus.get().unRegister(this);
     }
 
     @Override
@@ -100,5 +66,84 @@ public class GankIoDayFragment extends BaseRecycleFragment<GankIoDayContract
         mGankIoDayAdapter = new GankIoDayAdapter(null);
         mRvGankioDay.setAdapter(mGankIoDayAdapter);
         mRvGankioDay.setLayoutManager(new LinearLayoutManager(mActivity));
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        //第一次显示时加载最新的列表
+        mPresenter.loadLatestList();
+    }
+
+    @NonNull
+    @Override
+    public BasePresenter initPresenter() {
+        return GankIoDayPresenter.newInstance();
+    }
+
+    @Override
+    public void updateContentList(List<GankIoDayItemBean> list) {
+
+        if (mGankIoDayAdapter.getData().size() == 0) {
+            initRecycleView(list);
+        } else {
+            mGankIoDayAdapter.addData(list);
+        }
+
+    }
+
+    private void initRecycleView(List<GankIoDayItemBean> list) {
+        mGankIoDayAdapter = new GankIoDayAdapter(list);
+        mGankIoDayAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.ll_more:
+                        mPresenter.onMoreClick(position, (GankIoDayItemBean) adapter.getItem(position));
+                        break;
+                    case R.id.ll_refesh:
+                        mPresenter.onRefeshClick(position, (GankIoDayItemBean) adapter.getItem(position));
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+        mRvGankioDay.setAdapter(mGankIoDayAdapter);
+    }
+
+
+
+    @Override
+    public void showNetworkError() {
+        mGankIoDayAdapter.setEmptyView(errorView);
+    }
+
+    @Override
+    public void showLoadMoreError() {
+    }
+
+    @Override
+    public void showNoMoreData() {
+    }
+
+    @Override
+    protected void onErrorViewClick(View view) {
+        mPresenter.loadLatestList();
+    }
+
+    @Override
+    protected void showLoading() {
+        mGankIoDayAdapter.setEmptyView(loadingView);
+    }
+
+    @Override
+    public void itemNotifyChanged(int position, GankIoDayItemBean bean) {
+        mGankIoDayAdapter.refeshItem(position,bean);
+    }
+
+    @Override
+    public void itemNotifyChanged(int position) {
+
     }
 }

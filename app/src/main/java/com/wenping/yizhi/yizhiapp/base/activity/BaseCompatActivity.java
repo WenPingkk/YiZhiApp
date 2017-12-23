@@ -65,7 +65,9 @@ public abstract class BaseCompatActivity extends SupportActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //protected 修饰符修饰的方法,初始化数据
         initData();
+        //创建和声明控件
         initView(savedInstanceState);
+        //把当前Activity添加到堆栈
         AppManager.getAppManager().addActivity(this);
     }
 
@@ -211,7 +213,7 @@ public abstract class BaseCompatActivity extends SupportActivity {
      *
      * @return 隐藏键盘结果
      * <p>
-     * true:隐藏成功
+     * true:隐藏成功·
      * <p>
      * false:隐藏失败
      */
@@ -223,6 +225,11 @@ public abstract class BaseCompatActivity extends SupportActivity {
                 .getCurrentFocus().getWindowToken(), 0);
     }
 
+    /**
+     * titlebar的初始化
+     * @param toolbar
+     * @param title
+     */
     protected void initTitleBar(Toolbar toolbar, String title) {
         toolbar.setTitle(title);
         setSupportActionBar(toolbar);

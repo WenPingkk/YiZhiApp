@@ -1,6 +1,5 @@
 package com.wenping.yizhi.yizhiapp.api;
 
-
 import com.wenping.yizhi.yizhiapp.model.bean.weixin.WeixinChoiceListBean;
 
 import io.reactivex.Observable;
