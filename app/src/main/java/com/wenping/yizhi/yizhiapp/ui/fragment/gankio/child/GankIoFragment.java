@@ -24,6 +24,7 @@ import com.wenping.yizhi.yizhiapp.rxbus.RxBus;
 import com.wenping.yizhi.yizhiapp.rxbus.Subscribe;
 import com.wenping.yizhi.yizhiapp.ui.fragment.base.BasePresenter;
 import com.wenping.yizhi.yizhiapp.ui.fragment.base.fragment.BaseMVPCompatFragment;
+import com.wenping.yizhi.yizhiapp.ui.fragment.gankio.child.fragmenttabs.GankIoCustomFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.gankio.child.fragmenttabs.GankIoDayFragment;
 
 import java.util.ArrayList;
@@ -93,14 +94,16 @@ public class GankIoFragment extends BaseMVPCompatFragment<GankIoMainContract.Gan
      */
     @Override
     public void initUI(View view, @Nullable Bundle savedInstanceState) {
+
         mAppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                //第2个tab显示>右下角的悬浮按钮显示
                 if (mVpFragment.getCurrentItem() == 1) {
-                    mFabClassify.show();
-                } else {
-                    mFabClassify.hide();
+                    if (verticalOffset == 0) {
+                        mFabClassify.show();
+                    } else {
+                        mFabClassify.hide();
+                    }
                 }
             }
         });
@@ -165,7 +168,7 @@ public class GankIoFragment extends BaseMVPCompatFragment<GankIoMainContract.Gan
                     fragments.add(GankIoDayFragment.newInstance());
                     break;
                 case TabFragmentIndex.TAB_GANK_CUSTOM_INDEX:
-                    fragments.add(GankIoDayFragment.newInstance());
+                    fragments.add(GankIoCustomFragment.newInstance());
                     break;
                 case TabFragmentIndex.TAB_GANK_WELFARE_INDEX:
                     fragments.add(GankIoDayFragment.newInstance());
@@ -202,4 +205,6 @@ public class GankIoFragment extends BaseMVPCompatFragment<GankIoMainContract.Gan
         mTlTabs.setVerticalScrollbarPosition(index);
         mVpFragment.setCurrentItem(index);
     }
+
+
 }

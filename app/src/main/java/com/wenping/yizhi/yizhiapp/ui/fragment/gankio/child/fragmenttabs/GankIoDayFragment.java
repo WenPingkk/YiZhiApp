@@ -92,8 +92,17 @@ public class GankIoDayFragment extends BaseRecycleFragment<GankIoDayContract
 
     }
 
+
     private void initRecycleView(List<GankIoDayItemBean> list) {
         mGankIoDayAdapter = new GankIoDayAdapter(list);
+
+        mGankIoDayAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                mPresenter.onItemClick(position, (GankIoDayItemBean) adapter.getItem(position));
+            }
+        });
+
         mGankIoDayAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

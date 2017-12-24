@@ -59,6 +59,7 @@
 
         <activity android:name=".ui.activity.detail.WeixinChoiceDetailActivity"/>
 
+        <activity android:name=".ui.activity.detail.GankIoDetailActivity"/>
         <!-- ShareSDK的activity -->
         <activity
             android:name="com.mob.tools.MobUIShell"

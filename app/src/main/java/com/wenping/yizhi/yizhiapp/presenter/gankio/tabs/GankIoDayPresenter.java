@@ -9,6 +9,7 @@ import com.wenping.yizhi.yizhiapp.contract.contract.gankio.tabs.GankIoDayContrac
 import com.wenping.yizhi.yizhiapp.model.bean.gankio.GankIoDayItemBean;
 import com.wenping.yizhi.yizhiapp.model.gankio.tabs.GankIoDayModel;
 import com.wenping.yizhi.yizhiapp.rxbus.RxBus;
+import com.wenping.yizhi.yizhiapp.ui.activity.detail.GankIoDetailActivity;
 import com.wenping.yizhi.yizhiapp.ui.activity.pic.ImageBrowseActivity;
 
 import java.util.ArrayList;
@@ -100,7 +101,7 @@ public class GankIoDayPresenter extends GankIoDayContract.GankIoDayPresenter {
         } else {
             bundle.putString(BundleKeyConstant.ARG_KEY_GANKIO_DETAIL_URL, item.getUrl());
             bundle.putString(BundleKeyConstant.ARG_KEY_GANKIO_DETAIL_TITLE, item.getDesc());
-//            mIView.startNewActivity(GankIoDetailActivity.class, bundle);
+            mIView.startNewActivity(GankIoDetailActivity.class, bundle);
         }
     }
 
