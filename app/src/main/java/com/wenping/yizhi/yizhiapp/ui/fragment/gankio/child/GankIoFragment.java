@@ -26,6 +26,7 @@ import com.wenping.yizhi.yizhiapp.ui.fragment.base.BasePresenter;
 import com.wenping.yizhi.yizhiapp.ui.fragment.base.fragment.BaseMVPCompatFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.gankio.child.fragmenttabs.GankIoCustomFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.gankio.child.fragmenttabs.GankIoDayFragment;
+import com.wenping.yizhi.yizhiapp.ui.fragment.gankio.child.fragmenttabs.GankIoWelfareFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -171,7 +172,7 @@ public class GankIoFragment extends BaseMVPCompatFragment<GankIoMainContract.Gan
                     fragments.add(GankIoCustomFragment.newInstance());
                     break;
                 case TabFragmentIndex.TAB_GANK_WELFARE_INDEX:
-                    fragments.add(GankIoDayFragment.newInstance());
+                    fragments.add(GankIoWelfareFragment.newInstance());
                     break;
                 default:
                     break;

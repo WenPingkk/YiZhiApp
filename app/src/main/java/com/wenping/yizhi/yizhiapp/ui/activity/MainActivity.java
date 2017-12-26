@@ -114,9 +114,7 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
                     mFragments[THIRD],
                     mFragments[FOURTH],
                     mFragments[FIFTH]);
-
         } else {
-
             /**
              * findFragment 方法
              * 获取栈内的fragment对象

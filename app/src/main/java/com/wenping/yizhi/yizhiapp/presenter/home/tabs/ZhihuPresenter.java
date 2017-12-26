@@ -50,7 +50,6 @@ public class ZhihuPresenter extends ZhihuContract.ZhihuPresenter {
                 if (mIView != null) {
                     if (mIView.isVisiable())
                         mIView.showToast("Network error.");
-
                     //网络异常
                     mIView.showNetworkError();
                 }
