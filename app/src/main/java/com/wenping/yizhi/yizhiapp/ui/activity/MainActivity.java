@@ -100,7 +100,7 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
 
             mFragments[SECOND] = GankIoRootFragment.newInstance();
 
-            mFragments[THIRD] = HomeRootFragment.newInstance();
+            mFragments[THIRD] = MovieRootFragment.newInstance();
 
             mFragments[FOURTH] = HomeRootFragment.newInstance();
 
