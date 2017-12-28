@@ -7,6 +7,7 @@ import com.wenping.yizhi.yizhiapp.contract.contract.movie.MovieMainContract;
 import com.wenping.yizhi.yizhiapp.model.bean.douban.movie.HotMovieBean;
 import com.wenping.yizhi.yizhiapp.model.bean.douban.movie.child.SubjectsBean;
 import com.wenping.yizhi.yizhiapp.model.movie.MovieMainModel;
+import com.wenping.yizhi.yizhiapp.ui.activity.detail.MovieDetailActivity;
 
 import io.reactivex.functions.Consumer;
 
@@ -64,11 +65,11 @@ public class MovieMainPresenter extends MovieMainContract.MovieMainPresenter {
     @Override
     public void onItemClick(int position, SubjectsBean item, ImageView imageView) {
         //跳转到activity
-        // TODO: 12/27/2017
+        MovieDetailActivity.start(mIView.getBindActivity(),item,imageView);
     }
 
     @Override
     public void onHeaderClick() {
-        // TODO: 12/27/2017
+        mIView.startNewFragment(TopMoiveFragment.newInstance());
     }
 }
