@@ -8,6 +8,7 @@ import com.wenping.yizhi.yizhiapp.model.bean.douban.movie.HotMovieBean;
 import com.wenping.yizhi.yizhiapp.model.bean.douban.movie.child.SubjectsBean;
 import com.wenping.yizhi.yizhiapp.model.movie.MovieMainModel;
 import com.wenping.yizhi.yizhiapp.ui.activity.detail.MovieDetailActivity;
+import com.wenping.yizhi.yizhiapp.ui.fragment.movie.child.top.TopMoiveFragment;
 
 import io.reactivex.functions.Consumer;
 
