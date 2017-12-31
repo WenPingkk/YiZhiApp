@@ -102,7 +102,7 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
 
             mFragments[THIRD] = MovieRootFragment.newInstance();
 
-            mFragments[FOURTH] = HomeRootFragment.newInstance();
+            mFragments[FOURTH] = BookRootFragment.newInstance();
 
             mFragments[FIFTH] = HomeRootFragment.newInstance();
 

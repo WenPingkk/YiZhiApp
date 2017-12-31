@@ -1,12 +1,12 @@
 package com.wenping.yizhi.yizhiapp.ui.fragment.book;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.wenping.yizhi.yizhiapp.R;
 import com.wenping.yizhi.yizhiapp.ui.fragment.base.fragment.BaseCompatFragment;
+import com.wenping.yizhi.yizhiapp.ui.fragment.book.child.BookFragment;
 
 /**
  * Created by WenPing on 2017/12/12.
@@ -23,13 +23,13 @@ public class BookRootFragment extends BaseCompatFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_gank_io;
+        return R.layout.fragment_book;
     }
 
     @Override
     public void initUI(View view, @Nullable Bundle savedInstanceState) {
-        if (findChildFragment(BookRootFragment.class) == null) {
-            loadRootFragment(R.id.fl_container,BookRootFragment.newInstance());
+        if (findChildFragment(BookFragment.class) == null) {
+            loadRootFragment(R.id.fl_container, BookFragment.newInstance());
         }
     }
 }

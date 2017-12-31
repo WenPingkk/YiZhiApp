@@ -15,7 +15,7 @@
             android:id="@+id/fl_net_view"
             layout="@layout/sub_net_status"/>
 
-        <com.zyw.horrarndoo.sdk.widgets.CompatNestedScrollView
+        <com.wenping.yizhi.yizhiapp.widget.child.CompatNestedScrollView
             android:id="@+id/nsv_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -40,7 +40,7 @@
                     android:lineSpacingExtra="5dp"
                     android:padding="8dp"/>
             </LinearLayout>
-        </com.zyw.horrarndoo.sdk.widgets.CompatNestedScrollView>
+        </com.wenping.yizhi.yizhiapp.widget.child.CompatNestedScrollView>
     </FrameLayout>
 
     <FrameLayout

@@ -1,28 +1,18 @@
 package com.wenping.yizhi.yizhiapp.presenter.book;
 
-import android.support.annotation.NonNull;
-
 import com.wenping.yizhi.yizhiapp.contract.contract.book.BookMainContract;
 import com.wenping.yizhi.yizhiapp.model.book.BookMainModel;
 
-
 /**
- * Created by Horrarndoo on 2017/10/21.
- * <p>
+ *
+ * @author WenPing
+ * @date 12/30/2017
  */
 
-public class BookMainPresenter extends BookMainContract.BookMainPresenter {
-    @NonNull
+public class BookMainPresenter extends BookMainContract.BookMainPresenter{
+
     public static BookMainPresenter newInstance() {
         return new BookMainPresenter();
-    }
-
-    @Override
-    public void getTabList() {
-        if (mIView == null || mIModel == null)
-            return;
-
-        mIView.showTabList(mIModel.getTabs());
     }
 
     @Override
@@ -32,5 +22,16 @@ public class BookMainPresenter extends BookMainContract.BookMainPresenter {
 
     @Override
     public void onStart() {
+
+    }
+
+    /**
+     * 继承抽象类BookMainContract.BookMainPresenter实现ta的方法
+     */
+    @Override
+    public void getTabList() {
+        if (mIView != null && mIModel != null) {
+            mIView.showTabList(mIModel.getTabs());
+        }
     }
 }
