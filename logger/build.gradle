@@ -28,6 +28,6 @@ dependencies {
 
 }
 
-apply from: 'https://raw.githubusercontent.com/wansir/script/master/bintrayUpload.gradle'
+//apply from: 'https://raw.githubusercontent.com/wansir/script/master/bintrayUpload.gradle'
 
 

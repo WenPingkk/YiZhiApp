@@ -22,7 +22,7 @@
      -->
 
     <!--矩形裁剪框示例 -->
-    <com.zyw.horrarndoo.sdk.widgets.headclip.ClipViewLayout
+    <com.wenping.yizhi.yizhiapp.widget.headclip.ClipViewLayout
         android:id="@+id/cvl_rect"
         android:layout_width="match_parent"
         android:layout_height="0dp"

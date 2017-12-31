@@ -22,7 +22,7 @@
         android:layout_marginTop="5dp"
         android:gravity="center_horizontal"
         android:padding="@dimen/dimen_5dp"
-        android:text="Horrarndoo"
+        android:text="WenPingkk"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_18"/>
 </RelativeLayout>

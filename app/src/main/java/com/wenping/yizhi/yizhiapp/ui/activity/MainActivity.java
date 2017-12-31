@@ -18,7 +18,9 @@ import com.wenping.yizhi.yizhiapp.base.activity.BaseCompatActivity;
 import com.wenping.yizhi.yizhiapp.constant.BundleKeyConstant;
 import com.wenping.yizhi.yizhiapp.constant.HeadConstant;
 import com.wenping.yizhi.yizhiapp.helper.BottomNavigationViewHelper;
+import com.wenping.yizhi.yizhiapp.model.bean.rxbus.RxEventHeadBean;
 import com.wenping.yizhi.yizhiapp.rxbus.RxBus;
+import com.wenping.yizhi.yizhiapp.rxbus.Subscribe;
 import com.wenping.yizhi.yizhiapp.ui.activity.detail.WebViewLoadActivity;
 import com.wenping.yizhi.yizhiapp.ui.fragment.book.BookRootFragment;
 import com.wenping.yizhi.yizhiapp.ui.fragment.gankio.GankIoRootFragment;
@@ -40,6 +42,8 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragment;
+
+import static com.wenping.yizhi.yizhiapp.constant.RxBusCode.RX_BUS_CODE_HEAD_IMAGE_URI;
 
 /**
  * 主页
@@ -104,7 +108,7 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
 
             mFragments[FOURTH] = BookRootFragment.newInstance();
 
-            mFragments[FIFTH] = HomeRootFragment.newInstance();
+            mFragments[FIFTH] = PersonalRootFragment.newInstance();
 
             //加载多个同级根Fragment,类似Wechat, QQ主页的场景
             loadMultipleRootFragment(
@@ -354,7 +358,22 @@ public class MainActivity extends BaseCompatActivity implements HomeFragment.OnO
             dlRoot.openDrawer(GravityCompat.START);
         }
     }
-    // TODO: 2017/12/15 RxBus接收图片和uri的操作!这是在HeadSettingActivity中用到的，方式类似EVENTBUS;
-
+    /**
+     * RxBus接收图片Uri
+     *
+     * @param bean RxEventHeadBean
+     */
+    @Subscribe(code = RX_BUS_CODE_HEAD_IMAGE_URI)
+    public void rxBusEvent(RxEventHeadBean bean) {
+        Uri uri = bean.getUri();
+        if (uri == null) {
+            return;
+        }
+        String cropImagePath = FileUtils.getRealFilePathFromUri(AppUtils.getContext(), uri);
+        Bitmap bitMap = BitmapFactory.decodeFile(cropImagePath);
+        if (bitMap != null) {
+            civHead.setImageBitmap(bitMap);
+        }
+    }
 
 }

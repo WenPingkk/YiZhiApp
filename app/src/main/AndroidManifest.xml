@@ -60,6 +60,8 @@
         <activity android:name=".ui.activity.detail.WeixinChoiceDetailActivity"/>
 
         <activity android:name=".ui.activity.detail.GankIoDetailActivity"/>
+
+        <activity android:name=".ui.activity.AboutActivity"/>
         <!-- ShareSDK的activity -->
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -101,6 +103,8 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity android:name=".ui.activity.detail.MovieDetailActivity"/>
         <activity android:name=".ui.activity.detail.BookDetailActivity"/>
+        <activity android:name=".ui.activity.AboutActivity"/>
+        <activity android:name=".ui.activity.personal.HeadSettingActivity"/>
 
         <!-- 填写您从Mob开发者后台中得到的Appkey和AppSecret -->
         <meta-data
